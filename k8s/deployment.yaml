@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: onpre_k8s_return_hello
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: onpre_k8s_return_hello
+  template:
+    metadata:
+      labels:
+        app: onpre_k8s_return_hello
+    spec:
+      containers:
+        - name: onpre_k8s_return_hello_container
+          image: onpre_k8s_return_hello_image:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8000
