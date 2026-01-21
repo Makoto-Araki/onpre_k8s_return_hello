@@ -50,6 +50,18 @@ $ mkdir app
 $ cd ~/onpre_k8s_return_hello
 $ vi app/main.py
 
+## テスト用ディレクトリ作成
+$ cd ~/onpre_k8s_return_hello
+$ mkdir tests
+
+## テスト用設定ファイル作成
+$ cd ~/onpre_k8s_return_hello
+$ vi tests/conftest.py
+
+## テスト用プログラム作成
+$ cd ~/onpre_k8s_return_hello
+$ vi tests/test_main.py
+
 ## パッケージリスト作成
 $ cd ~/onpre_k8s_return_hello
 $ vi requirements.txt
@@ -82,6 +94,22 @@ $ mkdir .vscode
 $ cd ~/onpre_k8s_return_hello
 $ vi .vscode/settings.json
 
+## Github-Actions用のディレクトリ作成
+$ cd ~/onpre_k8s_return_hello
+$ mkdir -p .github/workflows
+
+## Github-Actions用のYAMLファイル作成
+$ cd ~/onpre_k8s_return_hello
+$ vi .github/workflows/pull_request_ci.yaml
+
+## Github-Actions用のYAMLファイル作成
+$ cd ~/onpre_k8s_return_hello
+$ vi .github/workflows/main_ci.yaml
+
+## Github-Actions用のYAMLファイル作成
+$ cd ~/onpre_k8s_return_hello
+$ vi .github/workflows/release.yaml
+
 ## 開発イメージビルド
 $ cd ~/onpre_k8s_return_hello
 $ docker build --no-cache -t onpre_k8s_return_hello_image .
@@ -90,13 +118,17 @@ $ docker build --no-cache -t onpre_k8s_return_hello_image .
 $ cd ~/onpre_k8s_return_hello
 $ code .
 
+## 開発コンテナ上でテストプログラム実行
+$ cd ~
+$ pytest tests/test_main.py
+
 ## 開発コンテナ上でアプリ起動 ※開発コンテナ上では Dockerfile のCMDは実行されない
 $ cd ~
 $ uvicorn app.main:app --host 0.0.0.0 --port 8000
 
 ## 開発コンテナ上で動作確認 ※動作確認後は Ctrl + C でアプリ終了
 $ cd ~
-$ curl http://localhost:8000
+$ curl http://localhost:8000 ※ブラウザ上でhttp//localhost:8000のURLを閲覧しても可
 
 ## 別ブランチをステージング移行
 $ cd ~/onpre_k8s_return_hello
