@@ -196,3 +196,98 @@ $ git push origin main vX.Y.Z
 Dockerhubに指定タグのDockerイメージを確認
 ```
 
+### Docker-Desktop上の設定確認1
+```note
+Settings > Resources > WSL Integration => Ubuntu スイッチON
+```
+
+### Docker-Desktop上の設定確認2
+```note
+Settings > Kubernetes => Enable Kubernetes スイッチON
+```
+
+### Kubectlの準備
+```bash
+## kubectlバイナリのダウンロード
+$ cd ~/onpre_k8s_return_hello
+$ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+## kubectlバイナリに権限付与
+$ cd ~/onpre_k8s_return_hello
+$ sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+## インストール確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl version --client
+
+## ダウンロードしたkubectlバイナリ削除
+$ cd ~/onpre_k8s_return_hello
+$ rm kubectl
+
+## 既存の設定ファイル削除
+$ cd ~/.kube
+$ mv config config_old
+
+## Windows11側で起動しているDocker-Desktop上の設定ファイルへのリンク作成
+$ cd ~/.kube
+$ ln -s /mnt/c/Users/(Windows側のユーザー名)/.kube/config config
+
+## コンテキスト一覧
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config get-contexts
+
+## コンテキスト確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config current-context
+
+## コンテキスト切替 ※コンテキスト切替時に実行
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config use-context (コンテキスト名)
+```
+
+### Kubernetesで動作確認 ※手動デプロイ
+```bash
+## コンテキスト一覧
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config get-contexts
+
+## コンテキスト確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config current-context
+
+## 名前空間一覧
+$ cd ~/onpre_k8s_return_hello
+$ kubectl get namespaces
+
+## 名前空間作成
+$ cd ~/onpre_k8s_return_hello
+$ kubectl create namespace user-apps
+
+## Deploymentリソース差分確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl diff -n user-apps -f k8s/deployment.yaml
+
+## Deploymentリソース作成または更新
+$ cd ~/onpre_k8s_return_hello
+$ kubectl apply -n user-apps -f k8s/deployment.yaml
+
+## Deploymentリソース確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl get deployments -n user-apps
+
+## Serviceリソース差分確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl diff -n user-apps -f k8s/service.yaml
+
+## Serviceリソース作成または更新
+$ cd ~/onpre_k8s_return_hello
+$ kubectl apply -n user-apps -f k8s/service.yaml
+
+## Serviceリソース確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl get service -n user-apps
+
+## Serviceにリクエスト送信
+$ cd ~/onpre_k8s_return_hello
+$ curl http://localhost:30080
+```
