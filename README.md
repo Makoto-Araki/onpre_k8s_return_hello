@@ -197,14 +197,10 @@ Dockerhubに指定タグのDockerイメージを確認
 ```
 
 ### Docker-Desktop上の設定確認1
-```note
-Settings > Resources > WSL Integration => Ubuntu スイッチON
-```
+![docker_desktop_setting_01](images/docker_desktop_setting_01.png)
 
 ### Docker-Desktop上の設定確認2
-```note
-Settings > Kubernetes => Enable Kubernetes スイッチON
-```
+![docker_desktop_setting_02](images/docker_desktop_setting_02.png)
 
 ### Kubectlの準備
 ```bash
