@@ -1,20 +1,26 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: onpre_k8s_return_hello
+  # Deploymentの名前
+  name: onpre-k8s-return-hello
 spec:
+  # 同時起動Pod数
   replicas: 1
+  # Deploymentが管理するPodの識別条件
   selector:
     matchLabels:
-      app: onpre_k8s_return_hello
+      app: onpre-k8s-return-hello
+  # Deployment配下で作成されるPod定義
   template:
     metadata:
+      # Podに付与されるラベル(spec.selector.matchLabelsと一致する必要がある)
       labels:
-        app: onpre_k8s_return_hello
+        app: onpre-k8s-return-hello
     spec:
+      # Pod内で起動するコンテナ定義
       containers:
-        - name: onpre_k8s_return_hello_container
-          image: onpre_k8s_return_hello_image:latest
-          imagePullPolicy: IfNotPresent
+        - name: onpre-k8s-return-hello-container  # コンテナ名
+          image: makotoaraki346/onpre_k8s_return_hello_image:v1.0.0  # Dockerhub上のイメージ指定
+          imagePullPolicy: IfNotPresent  # ローカルにイメージが存在すれば再取得しない
           ports:
-            - containerPort: 8000
+            - containerPort: 8000  # コンテナが待ち受けるポート番号
