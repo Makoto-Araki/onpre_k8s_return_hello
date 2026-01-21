@@ -179,3 +179,20 @@ $ git pull origin main
 $ cd ~/onpre_k8s_return_hello
 $ git branch -d feature/add-basicfiles
 ```
+
+### リリース作業
+```bash
+## タグ付与
+$ cd ~/onpre_k8s_return_hello
+$ git tag vX.Y.Z
+
+## リリース作業
+$ cd ~/onpre_k8s_return_hello
+$ git push origin main vX.Y.Z
+```
+
+### リリース確認
+```note
+Dockerhubに指定タグのDockerイメージを確認
+```
+
