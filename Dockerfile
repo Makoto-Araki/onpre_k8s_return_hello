@@ -3,6 +3,9 @@ FROM python:3.11-slim
 # デフォルトの作業ディレクトリ設定
 WORKDIR /app
 
+# jaraco系の古い依存関係を残すと脆弱性スキャンに検知されるため最新化
+RUN pip install --upgrade pip setuptools wheel
+
 # 依存ライブラリ一覧をコピー
 COPY requirements.txt .
 
