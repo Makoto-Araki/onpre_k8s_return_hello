@@ -20,7 +20,7 @@ spec:
       # Pod内で起動するコンテナ定義
       containers:
         - name: onpre-k8s-return-hello-container  # コンテナ名
-          image: makotoaraki346/onpre_k8s_return_hello_image:v1.0.0  # Dockerhub上のイメージ指定
+          image: makotoaraki346/onpre_k8s_return_hello_image:v2.0.0  # Dockerhub上のイメージ指定
           imagePullPolicy: IfNotPresent  # ローカルにイメージが存在すれば再取得しない
           ports:
             - containerPort: 8000  # コンテナが待ち受けるポート番号
