@@ -241,7 +241,7 @@ $ cd ~/onpre_k8s_return_hello
 $ kubectl config use-context (コンテキスト名)
 ```
 
-### Kubernetesで動作確認 ※手動デプロイ
+### Kubernetesで動作確認 ※NodePortでアクセス
 ```bash
 ## コンテキスト一覧
 $ cd ~/onpre_k8s_return_hello
@@ -286,4 +286,55 @@ $ kubectl get service -n user-apps
 ## Serviceにリクエスト送信
 $ cd ~/onpre_k8s_return_hello
 $ curl http://localhost:30080
+```
+
+### NodePortからIngressに移行 ※URLでアクセス
+```bash
+## コンテキスト一覧
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config get-contexts
+
+## コンテキスト確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl config current-context
+
+## Ingress-Controller導入
+$ cd ~/onpre_k8s_return_hello
+$ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/main/deploy/static/provider/cloud/deploy.yaml
+
+## Ingress-ControllerのPod確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl get pods -n ingress-nginx
+
+## Ingress-ControllerのService確認
+$ cd ~/onpre_k8s_return_hello
+$ kubectl get service -n ingress-nginx
+
+## ServiceのYAML追加
+$ cd ~/onpre_k8s_return_hello
+$ vi k8s/service2.yaml
+
+## IngressのYAML追加
+$ cd ~/onpre_k8s_return_hello
+$ vi k8s/ingress.yaml
+
+## 古いService削除
+$ cd ~/onpre_k8s_return_hello
+$ kubectl delete -n user-apps -f k8s/service.yaml
+
+## 新しいService作成
+$ cd ~/onpre_k8s_return_hello
+$ kubectl apply -n user-apps -f k8s/service2.yaml
+
+## Ingress作成
+$ cd ~/onpre_k8s_return_hello
+$ kubectl apply -n user-apps -f k8s/ingress.yaml
+
+## Windows側のhostsファイル修正
+$ cd C:\Windows\System32\drivers\etc
+$ vi hosts ※127.0.0.1 araki.comを追記
+
+## URLでアクセス可能を確認
+$ cd ~/onpre_k8s_return_hello
+$ curl http://araki.com
 ```
