@@ -16,5 +16,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 # デフォルトコマンド
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+#CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
 
+# デフォルトコマンド
+CMD ["gunicorn", "app.main:app", "-k", "uvicorn.workers.UvicornWorker", "-w", "3", "-b", "0.0.0.0:8000"]
