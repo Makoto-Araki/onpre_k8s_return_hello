@@ -1,13 +1,13 @@
 # ビルド用イメージ
-FROM python:3.11 AS builder
+FROM python:3.12 AS builder
 RUN pip install --upgrade pip setuptools wheel>=0.46.2
 #RUN COPY requirements.txt .
 #RUN pip install -r requirements.txt
 
 # メイン用イメージ
-FROM python:3.11-slim
-COPY --from=builder /usr/local/lib/python3.11/site-packages \
-                    /usr/local/lib/python3.11/site-packages
+FROM python:3.12-slim
+COPY --from=builder /usr/local/lib/python3.12/site-packages \
+                    /usr/local/lib/python3.12/site-packages
 
 # デフォルトの作業ディレクトリ設定
 WORKDIR /app
