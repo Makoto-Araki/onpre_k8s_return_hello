@@ -4,14 +4,15 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # jaraco系の古い依存関係を残すと脆弱性スキャンに検知されるため最新化
-RUN pip install --upgrade pip setuptools wheel
+RUN pip install --upgrade pip setuptools
 
 # 依存ライブラリ一覧をコピー
 COPY requirements.txt .
 
 # 依存ライブラリ一覧をインストール
 RUN pip install --no-cache-dir -r requirements.txt \
- && pip install --upgrade wheel>=0.46.2
+ && pip install --upgrade wheel>=0.46.2 \
+ && pip uninstall -y wheel
 
 # 全ファイルを/app配下にコピー
 COPY . .
