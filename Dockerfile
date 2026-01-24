@@ -10,7 +10,8 @@ RUN pip install --upgrade pip setuptools wheel
 COPY requirements.txt .
 
 # 依存ライブラリ一覧をインストール
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt \
+ && pip install --upgrade wheel>=0.46.2
 
 # 全ファイルを/app配下にコピー
 COPY . .
