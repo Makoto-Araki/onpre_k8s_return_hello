@@ -26,6 +26,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # && pip install --upgrade wheel>=0.46.2 \
 # && pip uninstall -y wheel
 
+# 不要ライブラリをアンインストール
+RUN pip uninstall -y wheel
+
 # 全ファイルを/app配下にコピー
 COPY . .
 
